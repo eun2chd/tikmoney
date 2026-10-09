@@ -1,0 +1,1175 @@
+:root {
+  --white: #ffffff;
+  --black: #111111;
+  --gray: #f3f3f3;
+  --mid: #8a8a8a;
+  --line: #e4e4e4;
+  --gutter: clamp(20px, 3.2vw, 48px);
+  font-family: 'Pretendard Variable', 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color: var(--black);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+  background: var(--white);
+}
+
+body {
+  overscroll-behavior: none;
+  user-select: none;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}
+
+.brand {
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  font-size: clamp(16px, 1.6vw, 22px);
+}
+
+.caption {
+  font-size: clamp(11px, 1vw, 13px);
+  letter-spacing: 0.14em;
+  color: var(--mid);
+}
+
+.caption-strong {
+  font-size: clamp(11px, 1vw, 13px);
+  letter-spacing: 0.14em;
+  font-weight: 700;
+}
+
+/* ───────── Dashboard ───────── */
+
+.dashboard {
+  height: 100dvh;
+  min-height: 560px;
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  padding: var(--gutter);
+  padding-bottom: calc(var(--gutter) * 0.6);
+  gap: clamp(12px, 2vh, 24px);
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.header-right {
+  text-align: right;
+}
+
+.clock {
+  font-size: clamp(20px, 2.4vw, 32px);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(20px, 5vh, 56px);
+}
+
+.income {
+  text-align: center;
+}
+
+.income-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: clamp(14px, 1.5vw, 18px);
+  color: #444;
+}
+
+.status {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  padding: 3px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--mid);
+}
+
+.status.is-on {
+  border-color: var(--black);
+  color: var(--black);
+}
+
+.status.is-on::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: var(--black);
+  vertical-align: 1px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.income-amount {
+  font-size: clamp(48px, 9.5vw, 128px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin: 8px 0 6px;
+}
+
+.currency {
+  font-weight: 500;
+  margin-right: 0.12em;
+  font-size: 0.6em;
+  vertical-align: 0.42em;
+}
+
+.income-rate {
+  font-size: clamp(14px, 1.5vw, 18px);
+  color: #444;
+}
+
+.income-rate.is-paused {
+  color: var(--mid);
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: min(760px, 100%);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.stat {
+  padding: clamp(12px, 2vh, 20px) 16px;
+  text-align: center;
+}
+
+.stat + .stat {
+  border-left: 1px solid var(--line);
+}
+
+.stat-label {
+  font-size: clamp(12px, 1.1vw, 14px);
+  color: var(--mid);
+  margin-bottom: 6px;
+}
+
+.stat-value {
+  font-size: clamp(20px, 2.4vw, 30px);
+  font-weight: 700;
+}
+
+.bar {
+  height: 3px;
+  background: var(--gray);
+  margin: 10px auto 0;
+  width: 70%;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  background: var(--black);
+  transform-origin: left;
+  transition: transform 1s linear;
+}
+
+/* ───────── Office ───────── */
+
+.office {
+  --px: clamp(3px, 0.85vh, 8px);
+  position: relative;
+  overflow: hidden;
+  background: var(--gray);
+  border-radius: 4px;
+  padding: clamp(12px, 2vh, 20px) clamp(16px, 2.4vw, 32px) clamp(8px, 1.4vh, 14px);
+  height: clamp(200px, 30vh, 340px);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.office-head {
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+}
+
+/* 직원·화분이 같은 바닥선에 서고, 이름표는 그 아래에 둔다 */
+.floor {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  padding-bottom: 22px;
+  min-height: 0;
+}
+
+.desk {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.desk figcaption {
+  position: absolute;
+  top: 100%;
+  margin-top: 6px;
+  white-space: nowrap;
+}
+
+.pixel {
+  display: block;
+  flex: none;
+}
+
+.pixel .frame-b {
+  opacity: 0;
+}
+
+.pet .frame-a {
+  animation: frame-a var(--speed) steps(1) infinite;
+}
+
+.pet .frame-b {
+  animation: frame-b var(--speed) steps(1) infinite;
+}
+
+/* ── 직원 동작: 근무 중에만, 1픽셀 단위로 조용하게 ── */
+
+.office.is-working .act-type-a {
+  animation: type-tap 0.5s steps(1) infinite;
+}
+
+.office.is-working .act-type-b {
+  animation: type-tap 0.5s steps(1) -0.25s infinite;
+}
+
+.office.is-working .act-draw {
+  animation: pen-draw 3.2s steps(1) infinite;
+}
+
+.office.is-working .act-calc {
+  animation: calc-tap 2.8s steps(1) infinite;
+}
+
+/* 눈 깜빡임은 항상, 퇴근 후에는 눈을 감고 잔다 */
+.sprite .blink {
+  opacity: 0;
+  animation: blink 5s steps(1) infinite;
+}
+
+.sprite-designer .blink {
+  animation-duration: 6.5s;
+  animation-delay: -2s;
+}
+
+.office.is-closed .sprite .blink {
+  opacity: 1;
+  animation: none;
+}
+
+@keyframes type-tap {
+  0% {
+    transform: translateY(-1px);
+  }
+  50% {
+    transform: none;
+  }
+}
+
+/* 펜이 태블릿 위를 이리저리 그었다가 가끔 들어 올린다 */
+@keyframes pen-draw {
+  0% {
+    transform: none;
+  }
+  12% {
+    transform: translateX(1px);
+  }
+  25% {
+    transform: translateX(2px);
+  }
+  37% {
+    transform: translate(3px, -1px);
+  }
+  50% {
+    transform: translateX(3px);
+  }
+  62% {
+    transform: translateX(1px);
+  }
+  75% {
+    transform: translate(-1px, -1px);
+  }
+  87% {
+    transform: translateX(-1px);
+  }
+}
+
+/* 톡톡톡 두드리고 잠시 서류를 보는 듯 쉰다 */
+@keyframes calc-tap {
+  0%,
+  16%,
+  32% {
+    transform: translateY(1px);
+  }
+  8%,
+  24%,
+  40% {
+    transform: none;
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  96% {
+    opacity: 1;
+  }
+}
+
+/* ── 동물: 바닥선을 따라 오가며, 방향이 바뀔 때 좌우 반전 ── */
+
+.pets {
+  /* 동물은 직원보다 작게: 사무실 픽셀 크기(0.85vh)의 약 65% */
+  --px: clamp(2px, 0.55vh, 5px);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 22px;
+  height: calc(var(--px) * 11);
+  pointer-events: none;
+}
+
+.pet {
+  position: absolute;
+  bottom: 0;
+}
+
+.pet-facing {
+  transform-origin: center;
+}
+
+.pet-dog {
+  animation: dog-walk 36s linear infinite;
+}
+
+.pet-dog .pet-facing {
+  animation: dog-face 36s steps(1) infinite;
+}
+
+.pet-cat {
+  animation: cat-walk 64s linear infinite;
+}
+
+.pet-cat .pet-facing {
+  animation: cat-face 64s steps(1) infinite;
+}
+
+/* 오리·병아리·토끼·거북이: 공용 왕복 경로를 각자 다른 속도와 출발 시점으로 */
+.pet-duck,
+.pet-chick,
+.pet-rabbit,
+.pet-turtle {
+  animation: pet-roam var(--dur) linear var(--delay) infinite both;
+}
+
+.pet-duck .pet-facing,
+.pet-chick .pet-facing,
+.pet-rabbit .pet-facing,
+.pet-turtle .pet-facing {
+  animation: pet-roam-face var(--dur) steps(1) var(--delay) infinite both;
+}
+
+.pet-duck {
+  --dur: 50s;
+  --delay: -12s;
+}
+
+/* 병아리는 같은 경로를 1.6초 늦게 따라가 엄마 오리 뒤를 졸졸 쫓는다 */
+.pet-chick {
+  --dur: 50s;
+  --delay: calc(-12s + 1.6s);
+  --path-w: 16; /* 오리 폭 기준으로 돌아서야 끝에서 오리를 앞지르지 않는다 */
+}
+
+.pet-rabbit {
+  --dur: 30s;
+  --delay: -20s;
+}
+
+/* 토끼는 걸을 때마다 깡충 */
+.pet-rabbit .pixel {
+  animation: hop 0.6s ease-in-out infinite;
+}
+
+.pet-turtle {
+  --dur: 150s;
+  --delay: -40s;
+}
+
+@keyframes pet-roam {
+  0%,
+  100% {
+    left: 0;
+  }
+  47%,
+  50% {
+    left: calc(100% - var(--px) * var(--path-w, var(--w)));
+  }
+  97% {
+    left: 0;
+  }
+}
+
+@keyframes pet-roam-face {
+  0% {
+    transform: scaleX(1);
+  }
+  48.5% {
+    transform: scaleX(-1);
+  }
+  98.5% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes hop {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(calc(var(--px) * -3));
+  }
+}
+
+@keyframes dog-walk {
+  0%,
+  100% {
+    left: 0;
+  }
+  45%,
+  50% {
+    left: calc(100% - var(--px) * var(--w));
+  }
+  95% {
+    left: 0;
+  }
+}
+
+@keyframes dog-face {
+  0% {
+    transform: scaleX(1);
+  }
+  47.5% {
+    transform: scaleX(-1);
+  }
+  97.5% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes cat-walk {
+  0%,
+  100% {
+    left: 60%;
+  }
+  15%,
+  25% {
+    left: 18%;
+  }
+  45%,
+  60% {
+    left: 82%;
+  }
+  80% {
+    left: 60%;
+  }
+}
+
+@keyframes cat-face {
+  0% {
+    transform: scaleX(-1);
+  }
+  20% {
+    transform: scaleX(1);
+  }
+  52% {
+    transform: scaleX(-1);
+  }
+}
+
+.bubble {
+  position: absolute;
+  top: 0;
+  right: 8%;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--mid);
+  animation: float 3s ease-in-out infinite;
+}
+
+.bubble:empty {
+  display: none;
+}
+
+.motto {
+  margin: 4px 0 0;
+  text-align: center;
+  font-size: clamp(12px, 1.1vw, 14px);
+  color: var(--mid);
+  font-style: italic;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.link {
+  background: none;
+  border: none;
+  padding: 8px 0 8px 16px;
+  font-size: clamp(11px, 1vw, 13px);
+  letter-spacing: 0.14em;
+  color: var(--mid);
+  cursor: pointer;
+}
+
+.link:active {
+  color: var(--black);
+}
+
+@keyframes frame-a {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes frame-b {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+@keyframes pulse {
+  50% { opacity: 0.25; }
+}
+
+@keyframes float {
+  50% { transform: translateY(-4px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ───────── Settings ───────── */
+
+.settings {
+  min-height: 100dvh;
+  padding: var(--gutter);
+  max-width: 1100px;
+  margin: 0 auto;
+  user-select: text;
+}
+
+.settings-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: clamp(20px, 4vh, 40px);
+}
+
+.settings-actions,
+.settings-tools,
+.holiday-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 32px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.field > span {
+  font-size: 13px;
+  color: var(--mid);
+}
+
+.field.wide {
+  grid-column: 1 / -1;
+}
+
+.field input {
+  height: 48px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--white);
+  font-size: 17px;
+  outline: none;
+  min-width: 0;
+}
+
+.field input:focus {
+  border-color: var(--black);
+}
+
+.chips,
+.holiday-list {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--white);
+  cursor: pointer;
+}
+
+.chip.on {
+  background: var(--black);
+  border-color: var(--black);
+  color: var(--white);
+}
+
+.chip.small {
+  width: auto;
+  height: 30px;
+  padding: 0 10px;
+  font-size: 13px;
+  background: var(--gray);
+  border-color: var(--gray);
+  color: var(--black);
+}
+
+.btn {
+  height: 44px;
+  padding: 0 20px;
+  border-radius: 4px;
+  border: 1px solid var(--black);
+  background: var(--black);
+  color: var(--white);
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.btn.ghost {
+  background: var(--white);
+  color: var(--black);
+  border-color: var(--line);
+}
+
+.btn.danger {
+  color: #b00020;
+}
+
+.settings-foot {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 10px;
+}
+
+.settings-foot p {
+  margin: 0;
+}
+
+.settings-tools {
+  margin-top: 12px;
+}
+
+.error {
+  color: #b00020;
+  font-size: 14px;
+}
+
+@media (max-width: 640px) {
+  .settings-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ───────── Currency / greeting ───────── */
+
+button.income-amount {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.greeting {
+  margin-top: 14px;
+  font-size: clamp(13px, 1.3vw, 16px);
+  color: var(--mid);
+}
+
+.greeting.is-strong {
+  color: var(--black);
+  font-weight: 600;
+}
+
+.chip.wide-chip {
+  width: auto;
+  padding: 0 14px;
+}
+
+.rate-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.rate-row input {
+  width: 140px;
+}
+
+/* ───────── Test mode ───────── */
+
+.footer-links {
+  display: flex;
+  gap: 8px;
+}
+
+.testbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.test-badge {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  padding: 4px 8px;
+  background: var(--black);
+  color: var(--white);
+  border-radius: 3px;
+}
+
+.test-btn {
+  height: 34px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--white);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.test-btn.on,
+.test-btn.strong {
+  border-color: var(--black);
+}
+
+.test-btn.on {
+  background: var(--black);
+  color: var(--white);
+}
+
+.dashboard.is-test {
+  box-shadow: inset 0 0 0 3px var(--black);
+}
+
+/* ───────── Farewell ───────── */
+
+.farewell {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.94);
+  display: grid;
+  place-items: center;
+  z-index: 10;
+  animation: fade-in 0.8s ease-out;
+  cursor: pointer;
+}
+
+.farewell-card {
+  text-align: center;
+  padding: 24px;
+}
+
+.farewell-title {
+  font-size: clamp(28px, 4.4vw, 56px);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  margin: 16px 0 24px;
+}
+
+.farewell-amount {
+  font-size: clamp(32px, 5vw, 64px);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.farewell-hint {
+  margin-top: 32px;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ───────── Icons / flags ───────── */
+
+.currency-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.flag {
+  width: 22px;
+  height: auto;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px var(--line);
+}
+
+.currency-code {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.currency-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--mid);
+  cursor: pointer;
+}
+
+.currency-switch .currency-code {
+  color: var(--black);
+}
+
+.currency-switch:active {
+  border-color: var(--black);
+}
+
+.farewell .currency-flag {
+  margin-bottom: 8px;
+}
+
+.link,
+.test-btn,
+.chip.wide-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.privacy-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 24px;
+  padding: 12px 16px;
+  background: var(--gray);
+  border-radius: 4px;
+  font-size: 14px;
+  color: #444;
+}
+
+.privacy-note svg {
+  flex: none;
+  font-size: 18px;
+  color: var(--black);
+}
+
+/* ───────── Clock mode ───────── */
+
+.clockmode {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.clockmode-label {
+  margin-top: 18px;
+}
+
+.clockmode-time {
+  font-size: clamp(48px, 9.5vw, 128px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin: 6px 0 10px;
+}
+
+.clockmode-days {
+  font-size: 0.5em;
+  font-weight: 600;
+  vertical-align: 0.5em;
+}
+
+.clockmode-today {
+  color: var(--black);
+  font-size: 13px;
+}
+
+/* ───────── Hidden total ───────── */
+
+.stat-secret {
+  background: none;
+  border: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.stat-secret .stat-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stat-secret + .stat {
+  border-left: 1px solid var(--line);
+}
+
+/* ── 툴팁: 마우스는 호버, 태블릿은 탭(포커스)으로 연다 ── */
+
+.field-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--mid);
+}
+
+.tooltip {
+  position: relative;
+  display: inline-flex;
+}
+
+.tooltip-trigger {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  margin: -6px 0;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  color: var(--mid);
+  font-size: 16px;
+  cursor: help;
+}
+
+.tooltip-trigger:hover,
+.tooltip-trigger:focus-visible {
+  color: var(--black);
+}
+
+.tooltip-bubble {
+  position: absolute;
+  left: -8px; /* 입력칸이 왼쪽 열에 있어서 가운데 정렬하면 화면 밖으로 잘린다 */
+  bottom: calc(100% + 8px);
+  z-index: 5;
+  width: min(320px, 80vw);
+  padding: 12px 14px;
+  border-radius: 6px;
+  background: var(--black);
+  color: var(--white);
+  font-size: 13px;
+  line-height: 1.55;
+  text-align: left;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition: opacity 0.15s, transform 0.15s, visibility 0.15s;
+  pointer-events: none;
+}
+
+.tooltip-bubble::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 16px;
+  border: 6px solid transparent;
+  border-top-color: var(--black);
+}
+
+.tooltip:hover .tooltip-bubble,
+.tooltip:focus-within .tooltip-bubble {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+/* ───────── Modal (만든 사람) ───────── */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(17, 17, 17, 0.35);
+  animation: fade-in 0.2s ease-out;
+}
+
+.modal-card {
+  position: relative;
+  width: min(440px, 100%);
+  padding: 32px;
+  border-radius: 8px;
+  background: var(--white);
+  user-select: text;
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: none;
+  font-size: 20px;
+  color: var(--mid);
+  cursor: pointer;
+}
+
+.modal-title {
+  margin: 8px 0 12px;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.modal-text {
+  margin: 0 0 20px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #444;
+}
+
+.contact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 12px 12px 16px;
+  border-radius: 4px;
+  background: var(--gray);
+  margin-bottom: 12px;
+}
+
+.contact-email {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.mail-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+/* ───────── 수익 상태 설명 ───────── */
+
+.reason {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.reason-text {
+  font-size: clamp(13px, 1.3vw, 16px);
+  color: var(--mid);
+}
+
+.reason-text.is-on {
+  color: var(--black);
+}
+
+.reason-next {
+  font-size: clamp(12px, 1.1vw, 14px);
+  color: var(--mid);
+}
+
+.stat-sub {
+  margin-top: 4px;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--mid);
+}

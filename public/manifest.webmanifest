@@ -1,0 +1,10 @@
+{
+  "name": "TIKMONEY",
+  "short_name": "TIKMONEY",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "start_url": "/",
+  "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}
