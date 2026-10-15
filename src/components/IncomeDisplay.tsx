@@ -25,7 +25,7 @@ function reason(day: DayInfo, now: number): { text: string; next?: string } {
     const hasBreakNext = i >= 0 && i < intervals.length - 1;
     const until = intervals[i]?.end ?? day.endAt!;
     return {
-      text: '근무 시간이라 1초마다 수익이 쌓이고 있어요',
+      text: '',
       next: `${hasBreakNext ? '휴게' : '퇴근'} ${hhmm(until)} · ${duration(until - now)} 남음`,
     };
   }
@@ -71,9 +71,9 @@ export function IncomeDisplay({ nickname, today, perSecond, status, day, now, mo
         초당 +{money.small(perSecond)}
         {!earning && ' · 일시정지'}
       </div>
-      {why.text && (
+      {(why.text || why.next) && (
         <div className="reason">
-          <span className={earning ? 'reason-text is-on' : 'reason-text'}>{why.text}</span>
+          {why.text && <span className={earning ? 'reason-text is-on' : 'reason-text'}>{why.text}</span>}
           {why.next && <span className="reason-next num">{why.next}</span>}
         </div>
       )}

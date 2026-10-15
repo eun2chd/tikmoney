@@ -17,6 +17,10 @@ import { startOfDay } from '../lib/workCalendar';
 import { LuPlay, LuSettings, LuUser } from 'react-icons/lu';
 import { CURRENCY_CODES, DEFAULT_PREFS, makeMoney, type DisplayPrefs } from '../lib/currency';
 
+const SHOW_TEST_MODE =
+  import.meta.env.DEV &&
+  /^(localhost|127\.0\.0\.1|\[::1\]|10\.\d+\.\d+\.\d+|192\.168\.\d+\.\d+|172\.(1[6-9]|2\d|3[01])\.\d+\.\d+)$/.test(location.hostname);
+
 type Props = { data: AppData; onOpenSettings: () => void; onChangePrefs: (p: DisplayPrefs) => void };
 
 export function Dashboard({ data, onOpenSettings, onChangePrefs }: Props) {
@@ -92,8 +96,8 @@ export function Dashboard({ data, onOpenSettings, onChangePrefs }: Props) {
           <TestBar test={test} day={day} now={now} />
         ) : (
           <div className="footer-links">
-            {/* 테스트 모드는 개발 서버(npm run dev)에서만 노출. 배포 빌드에서는 코드째 제거된다 */}
-            {import.meta.env.DEV && (
+            {/* 테스트 모드는 로컬에서 띄운 개발 서버에서만 노출. 배포 도메인에서는 dev 서버여도 숨긴다 */}
+            {SHOW_TEST_MODE && (
               <button className="link" onClick={test.start}>
                 <LuPlay aria-hidden /> TEST MODE
               </button>
