@@ -1173,3 +1173,261 @@ button.income-amount {
   letter-spacing: 0.04em;
   color: var(--mid);
 }
+
+/* ───────── Admin ───────── */
+
+.admin {
+  min-height: 100dvh;
+  padding: var(--gutter);
+  max-width: 1200px;
+  margin: 0 auto;
+  user-select: text;
+  display: grid;
+  gap: 20px;
+  align-content: start;
+}
+
+.admin-login {
+  place-items: center;
+  align-content: center;
+}
+
+.admin-login-card {
+  width: min(360px, 100%);
+  display: grid;
+  gap: 16px;
+}
+
+.admin-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.admin-tools {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.admin-tools .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 14px;
+}
+
+.admin-date {
+  height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--white);
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.tile {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px 18px;
+  display: grid;
+  gap: 6px;
+}
+
+.tile-label {
+  font-size: 13px;
+  color: var(--mid);
+}
+
+.tile-value {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.tile.hero .tile-value {
+  font-size: 48px;
+  line-height: 1.1;
+}
+
+.panel {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 18px;
+  min-width: 0;
+}
+
+.panel-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.panel-title {
+  margin: 0 0 16px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.admin-empty {
+  margin: 0;
+  color: var(--mid);
+  font-size: 14px;
+}
+
+.cols {
+  height: 180px;
+  display: flex;
+  align-items: stretch;
+  gap: 2px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 22px;
+  position: relative;
+}
+
+.col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  cursor: default;
+}
+
+.col-bar {
+  width: min(24px, 100%);
+  min-height: 1px;
+  background: var(--black);
+  border-radius: 4px 4px 0 0;
+}
+
+.col:hover .col-bar {
+  opacity: 0.7;
+}
+
+.col-label {
+  position: absolute;
+  bottom: -20px;
+  font-size: 11px;
+  color: var(--mid);
+  white-space: nowrap;
+}
+
+.col:hover::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 4px);
+  background: var(--black);
+  color: var(--white);
+  font-size: 12px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.col:first-child:hover::after {
+  left: 0;
+}
+
+.col:last-child:hover::after {
+  right: 0;
+}
+
+.rank {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.rank li {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.rank-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rank-bar {
+  height: 8px;
+  background: var(--gray);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.rank-bar span {
+  display: block;
+  height: 100%;
+  background: var(--black);
+  border-radius: 4px;
+}
+
+.rank-count {
+  font-weight: 700;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.admin-table th {
+  text-align: left;
+  font-weight: 500;
+  color: var(--mid);
+  font-size: 12px;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.admin-table td {
+  padding: 10px;
+  border-bottom: 1px solid var(--gray);
+}
+
+.admin-table .r {
+  text-align: right;
+}
+
+.tag {
+  font-size: 11px;
+  background: var(--gray);
+  border-radius: 3px;
+  padding: 1px 5px;
+  margin-left: 4px;
+}
+
+.modal-actions {
+  display: grid;
+  gap: 8px;
+}
+
+.modal-actions .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}

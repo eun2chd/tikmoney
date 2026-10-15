@@ -3,10 +3,10 @@ import type { AppData, WorkSettings } from '../types/settings';
 import { KR_HOLIDAYS } from '../lib/holidays';
 import { dailyWorkMs, isWorkDay, startOfDay, workDaysInYear } from '../lib/workCalendar';
 import { rateForDay } from '../lib/income';
-import { exportData, importData } from '../lib/storage';
+import { exportData, importData, initialData } from '../lib/storage';
 import { won } from '../lib/format';
 import { CurrencyFlag } from '../components/CurrencyFlag';
-import { LuEye, LuEyeOff, LuInfo, LuShieldCheck, LuTablet } from 'react-icons/lu';
+import { LuEye, LuEyeOff, LuInfo, LuSave, LuShieldCheck, LuTablet, LuX } from 'react-icons/lu';
 import { CURRENCIES, CURRENCY_CODES, DEFAULT_PREFS, rateOf, type DisplayPrefs } from '../lib/currency';
 
 const DAYS = ['일', '월', '화', '수', '목', '금', '토'];
@@ -52,6 +52,7 @@ export function Settings({ initial, initialPrefs, data, onSave, onCancel, onImpo
   const [error, setError] = useState('');
   const [resetArmed, setResetArmed] = useState(false);
   const [fullResetArmed, setFullResetArmed] = useState(false);
+  const [backupAsk, setBackupAsk] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
   const firstRun = !initial;
 
@@ -78,7 +79,16 @@ export function Settings({ initial, initialPrefs, data, onSave, onCancel, onImpo
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!valid) return setError('연봉, 근무 요일, 근무 시간을 확인해 주세요.');
-    onSave({ ...s, nickname: s.nickname.trim() }, prefs);
+    // 처음 시작할 때는 설정값을 파일로 백업할지 먼저 묻는다
+    if (firstRun) return setBackupAsk(true);
+    finish();
+  };
+
+  const finish = () => onSave({ ...s, nickname: s.nickname.trim() }, prefs);
+
+  const backupAndStart = async () => {
+    const saved = await exportData(initialData({ ...s, nickname: s.nickname.trim() }, prefs));
+    if (saved) finish();
   };
 
   return (
@@ -356,6 +366,32 @@ export function Settings({ initial, initialPrefs, data, onSave, onCancel, onImpo
           </div>
         )}
       </footer>
+
+      {backupAsk && (
+        <div className="modal" onClick={() => setBackupAsk(false)}>
+          <div className="modal-card" role="dialog" aria-labelledby="backup-title" onClick={(e) => e.stopPropagation()}>
+            <button type="button" className="modal-close" onClick={() => setBackupAsk(false)} aria-label="닫기">
+              <LuX aria-hidden />
+            </button>
+            <div className="caption">BACKUP</div>
+            <h2 id="backup-title" className="modal-title">
+              설정값을 파일로 저장해 둘까요?
+            </h2>
+            <p className="modal-text">
+              입력한 연봉·근무시간은 이 브라우저에만 저장돼요. 브라우저 기록을 지우거나 기기를 바꾸면 사라지니,
+              바탕화면 같은 곳에 파일로 저장해 두면 나중에 설정 → 가져오기로 그대로 되살릴 수 있어요.
+            </p>
+            <div className="modal-actions">
+              <button type="button" className="btn" onClick={backupAndStart}>
+                <LuSave aria-hidden /> 파일로 저장하고 시작
+              </button>
+              <button type="button" className="btn ghost" onClick={finish}>
+                저장 없이 시작
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </form>
   );
 }

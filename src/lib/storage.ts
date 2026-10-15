@@ -46,13 +46,40 @@ export function applySettings(data: AppData, settings: WorkSettings, now = Date.
   return { ...data, periods: [...periods, { settings, from: now }] };
 }
 
-export function exportData(data: AppData): void {
+type SavePicker = (o: {
+  suggestedName: string;
+  types: { description: string; accept: Record<string, string[]> }[];
+}) => Promise<{ createWritable: () => Promise<{ write: (b: Blob) => Promise<void>; close: () => Promise<void> }> }>;
+
+/**
+ * 백업 파일 저장. 저장 위치를 고를 수 있는 브라우저(PC 크롬·엣지)에서는 위치 선택 창을 띄우고,
+ * 그 외에는 다운로드 폴더로 받는다. 사용자가 선택 창을 닫으면 false.
+ */
+export async function exportData(data: AppData): Promise<boolean> {
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const name = `tikmoney-backup-${new Date().toISOString().slice(0, 10)}.json`;
+  const picker = (window as unknown as { showSaveFilePicker?: SavePicker }).showSaveFilePicker;
+  if (picker) {
+    try {
+      const handle = await picker({
+        suggestedName: name,
+        types: [{ description: 'TIKMONEY 백업', accept: { 'application/json': ['.json'] } }],
+      });
+      const w = await handle.createWritable();
+      await w.write(blob);
+      await w.close();
+      return true;
+    } catch (e) {
+      if (e instanceof DOMException && e.name === 'AbortError') return false;
+      // 권한 문제 등은 일반 다운로드로 대신한다
+    }
+  }
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = `tikmoney-backup-${new Date().toISOString().slice(0, 10)}.json`;
+  a.download = name;
   a.click();
   URL.revokeObjectURL(a.href);
+  return true;
 }
 
 export async function importData(file: File): Promise<AppData> {

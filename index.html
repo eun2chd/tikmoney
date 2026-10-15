@@ -5,17 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#ffffff" />
     <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- 검색 노출 -->
+    <title>TIKMONEY - 실시간 월급 계산기 | 지금 이 순간 내가 번 돈</title>
+    <meta
+      name="description"
+      content="연봉과 출퇴근 시간만 넣으면 오늘 번 돈이 1초마다 올라가요. 초당·분당 수익, 퇴근까지 남은 시간, 월급날 D-day, 누적 수익까지 한눈에 보는 직장인 실시간 월급 타이머."
+    />
+    <meta
+      name="keywords"
+      content="실시간 월급 계산기, 월급 계산기, 연봉 계산기, 시급 계산기, 초당 수익, 초봉 계산, 실시간 연봉, 월급 타이머, 퇴근 시간 계산기, 퇴근 카운트다운, 월급날 디데이, 오늘 번 돈, 직장인 월급, 월급루팡, 돈 버는 시계, 연봉 실수령, 근무시간 계산, TIKMONEY, 틱머니"
+    />
+    <meta name="author" content="TIKMONEY" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="canonical" href="https://tikmoney-pi.vercel.app/" />
+    <!-- 소유 확인 코드: Google Search Console / 네이버 서치어드바이저에서 발급받아 content에 넣으면 된다 -->
+    <!-- <meta name="google-site-verification" content="" /> -->
+    <!-- <meta name="naver-site-verification" content="" /> -->
+
+    <!-- 공유 미리보기 (카카오톡·페이스북·슬랙 등) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="TIKMONEY" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:url" content="https://tikmoney-pi.vercel.app/" />
+    <meta property="og:title" content="TIKMONEY - 실시간 월급 계산기" />
+    <meta property="og:description" content="지금 이 순간에도 월급은 올라가는 중. 오늘 번 돈을 1초 단위로 확인해 보세요." />
+    <meta property="og:image" content="https://tikmoney-pi.vercel.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="TIKMONEY 실시간 월급 계산기" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="TIKMONEY - 실시간 월급 계산기" />
+    <meta name="twitter:description" content="지금 이 순간에도 월급은 올라가는 중. 오늘 번 돈을 1초 단위로 확인해 보세요." />
+    <meta name="twitter:image" content="https://tikmoney-pi.vercel.app/og-image.png" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "TIKMONEY",
+        "alternateName": ["틱머니", "실시간 월급 계산기"],
+        "url": "https://tikmoney-pi.vercel.app/",
+        "description": "연봉과 출퇴근 시간을 입력하면 오늘 번 돈을 1초 단위로 보여주는 실시간 월급 계산기",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "All",
+        "inLanguage": "ko",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" }
+      }
+    </script>
+
     <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/og-icon.png" />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
     />
     <link rel="manifest" href="/manifest.webmanifest" />
-    <title>TIKMONEY</title>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- 앱이 뜨기 전·JS를 실행하지 않는 검색 로봇에게 보이는 소개. React가 렌더링하면 대체된다 -->
+      <main style="max-width: 720px; margin: 0 auto; padding: 48px 24px; line-height: 1.7">
+        <h1>TIKMONEY · 실시간 월급 계산기</h1>
+        <p>연봉과 출퇴근 시간만 입력하면 오늘 번 돈이 1초마다 올라가는 모습을 볼 수 있어요.</p>
+        <ul>
+          <li>초당·분당 수익과 오늘 번 돈을 실시간으로 표시</li>
+          <li>퇴근까지 남은 시간, 휴게시간 자동 제외</li>
+          <li>연봉 기준·월급 기준 시급 계산, 월급날 D-day</li>
+          <li>근무 요일·공휴일 반영, 누적 수익 확인</li>
+          <li>주변 사람이 모르게 외화로 표시하거나 금액 가리기</li>
+        </ul>
+      </main>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
