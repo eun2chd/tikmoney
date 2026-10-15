@@ -32,7 +32,9 @@ export function Dashboard({ data, onOpenSettings, onChangePrefs }: Props) {
       ...prefs,
       currency: CURRENCY_CODES[(CURRENCY_CODES.indexOf(prefs.currency) + 1) % CURRENCY_CODES.length],
     });
-  const test = useTestClock(settings);
+  const clock = useTestClock(settings);
+  // 배포 빌드에서는 테스트 모드를 강제로 끈다 (SHOW_TEST_MODE가 상수 false가 되어 테스트 UI 코드가 번들에서 빠짐)
+  const test = SHOW_TEST_MODE ? clock : { ...clock, active: false, speed: 1, simNow: (t: number) => t };
   // 배속 중에는 숫자가 끊겨 보이지 않도록 더 자주 갱신
   const realNow = useNow(test.active && test.speed > 1 ? 200 : 1000);
   const now = test.simNow(realNow);
@@ -92,7 +94,7 @@ export function Dashboard({ data, onOpenSettings, onChangePrefs }: Props) {
       <OfficeScene status={day.status} />
       <footer className="footer">
         <span className="caption">TIKMONEY v1.0</span>
-        {test.active ? (
+        {SHOW_TEST_MODE && test.active ? (
           <TestBar test={test} day={day} now={now} />
         ) : (
           <div className="footer-links">
