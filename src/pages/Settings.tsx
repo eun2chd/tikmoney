@@ -110,6 +110,18 @@ export function Settings({ initial, initialPrefs, data, onSave, onCancel, onImpo
         </div>
       </header>
 
+      {/* 첫 화면 소개. 검색엔진은 이 화면을 렌더링해서 색인하므로 서비스 설명이 본문에 있어야 한다 */}
+      {firstRun && (
+        <section className="intro">
+          <h1 className="intro-title">실시간 월급 계산기</h1>
+          <p className="intro-text">
+            연봉과 출퇴근 시간만 입력하면 오늘 번 돈이 1초마다 올라가요. 초당·분당 수익, 퇴근까지 남은 시간, 월급날
+            D-day, 누적 수익까지 한눈에 확인해 보세요. 휴게시간과 공휴일은 자동으로 빠지고, 연봉 기준·월급 기준 시급
+            계산을 모두 지원해요.
+          </p>
+        </section>
+      )}
+
       <p className="privacy-note">
         <LuTablet aria-hidden />
         TIKMONEY는 태블릿 가로 화면에 맞춰 만들었어요. 태블릿에 켜 두고 사용하는 걸 권장해요.

@@ -1431,3 +1431,22 @@ button.income-amount {
   justify-content: center;
   gap: 8px;
 }
+
+/* 첫 설정 화면 소개 */
+.intro {
+  margin: 0 0 24px;
+}
+
+.intro-title {
+  margin: 0 0 8px;
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 800;
+}
+
+.intro-text {
+  margin: 0;
+  max-width: 720px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #444;
+}
